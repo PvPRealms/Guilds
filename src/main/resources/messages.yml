@@ -1,0 +1,6 @@
+prefix: "<gray>[<green>Guilds</green>]</gray>"
+info: "<prefix> You are in <aqua><bold>{guild}</bold></aqua>."
+set: "<prefix> Set {player} to guild {guild}."
+guild-not-exist: "<prefix> Guild {guild} does not exist."
+first-join: "<prefix> You have been assigned to a <bold>Guild</bold>."
+reload: "<prefix> Guilds plugin reloaded."

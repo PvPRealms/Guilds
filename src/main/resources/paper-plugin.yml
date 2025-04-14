@@ -1,0 +1,11 @@
+name: Guilds
+version: '1.0.0'
+main: net.pvprealms.guilds.Guilds
+api-version: '1.21'
+authors: [ Isaac Dolphin ]
+description: A Guilds plugin for Realms.
+
+permissions:
+  guild.admin:
+    description: Administrator commands for the Guilds plugin.
+    default: op
