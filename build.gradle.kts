@@ -23,6 +23,10 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+
+    /* Vault API (Permissions, Economy, Chat etc.) */
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     /* Adventure API */
@@ -34,7 +38,7 @@ dependencies {
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
 
     /* GUI Framework */
-//    implementation("com.github.TriumphTeam:triumph-gui:3.1.5")
+    implementation("dev.triumphteam:triumph-gui:3.1.11")
 
     /* Configuration Framework */
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3")

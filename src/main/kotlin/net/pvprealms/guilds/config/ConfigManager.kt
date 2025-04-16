@@ -20,4 +20,13 @@ object ConfigManager {
             section.getConfigurationSection(key)?.getString("name") ?: key
         }
     }
+
+    fun shouldIgnoreInactive(): Boolean {
+        return config.getBoolean("assignment.ignore-inactive", true)
+    }
+
+    fun getInactiveThresholdMs(): Long {
+        val days = config.getInt("assignment.inactive-threshold-days", 7)
+        return days * 24L * 60L * 60L * 1000L
+    }
 }

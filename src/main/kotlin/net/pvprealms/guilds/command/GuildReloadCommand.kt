@@ -7,8 +7,7 @@ import co.aikar.commands.annotation.Default
 import co.aikar.commands.annotation.Description
 import co.aikar.commands.annotation.Subcommand
 import net.pvprealms.guilds.config.ConfigManager
-import net.pvprealms.guilds.config.Messages
-import net.pvprealms.guilds.core.GuildManager
+import net.pvprealms.guilds.config.MessageManager
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -18,14 +17,12 @@ import org.bukkit.plugin.java.JavaPlugin
 @CommandPermission("guilds.admin")
 class GuildReloadCommand(
     private val plugin: JavaPlugin,
-    private val guildManager: GuildManager
 ): BaseCommand() {
-
     @Default
-    fun onGuildReload(sender: Player) {
+    fun onReload(sender: Player) {
         ConfigManager.load(plugin)
-        Messages.load(plugin)
+        MessageManager.load(plugin)
 
-        sender.sendMessage(Messages.format("reload"))
+        sender.sendMessage(MessageManager.format("plugin.reload"))
     }
 }

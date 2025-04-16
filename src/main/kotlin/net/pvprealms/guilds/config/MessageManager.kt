@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
-object Messages {
+object MessageManager {
 
     private lateinit var config: YamlConfiguration
     private var prefix: String = ""
@@ -16,7 +16,7 @@ object Messages {
         if (!file.exists()) plugin.saveResource("messages.yml", false)
         config = YamlConfiguration.loadConfiguration(file)
 
-        prefix = config.getString("prefix") ?: ""
+        prefix = config.getString("plugin.prefix") ?: ""
     }
 
     fun format(path: String, replacements: Map<String, String> = emptyMap()): Component {

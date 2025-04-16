@@ -5,3 +5,7 @@ guilds:
     name: "Guild of Wisdom"
   shadows:
     name: "Guild of Shadows"
+
+assignment:
+  ignore-inactive: true
+  inactive-threshold-days: 7

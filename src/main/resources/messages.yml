@@ -1,6 +1,16 @@
-prefix: "<gray>[<green>Guilds</green>]</gray>"
-info: "<prefix> You are in <aqua><bold>{guild}</bold></aqua>."
-set: "<prefix> Set {player} to guild {guild}."
-guild-not-exist: "<prefix> Guild {guild} does not exist."
-first-join: "<prefix> You have been assigned to a <bold>Guild</bold>."
-reload: "<prefix> Guilds plugin reloaded."
+plugin:
+  prefix: "<gray>[<green>Guilds</green>]</gray>"
+  reload: "<prefix> Guilds plugin reloaded."
+  guild-not-exist: "<prefix> Guild <white>{guild}</white><gray> does not exist."
+
+assignment:
+  assigned-first-join: "<prefix> You have been assigned to the <white>{guild}</white><gray>."
+  sender-set-message: "<prefix> You have assigned <white>{player}</white> to the <white>{guild}</white><gray>."
+  target-set-message: "<prefix> You have been re-assigned to the <white>{guild}</white><gray>."
+
+economy:
+  login-valuation-change: "<green>Your Guild’s valuation increased by <white>{increase}</white><green> since your last login."
+  greater-than-zero: "<red>Please enter an amount greater than $0.</red>"
+  insufficient-funds: "<red>You do not have sufficient funds.</red>"
+  deposit: "<green>You have successfully deposited <white>{amount}<green> into your Guild."
+  guild-valuation: "<prefix> Value: <white>{value}</white>"
