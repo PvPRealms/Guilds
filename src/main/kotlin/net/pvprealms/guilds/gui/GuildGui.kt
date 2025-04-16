@@ -26,7 +26,7 @@ object GuildGui {
         val guildInformationItem = ItemBuilder.from(Material.EMERALD)
             .name(mm("<green>${guild.displayName}</green>"))
             .lore(listOf(
-                mm("<gray>Members: <white>${service.getGuildMembers(guild).size}")
+                mm("<gray>Members: <white>${service.getPlayersInGuild(guild).size}")
             ))
             .asGuiItem()
 

@@ -3,21 +3,20 @@ package net.pvprealms.guilds.service.economy
 import net.pvprealms.guilds.model.Guild
 
 class GuildEconomyService(
-    private val storage: GuildEconomyStorageService
+    private val economyStorageService: GuildEconomyStorageService
 ) {
 
-    fun getValuation(guild: Guild): Double {
-        return storage.getValuation(guild.id)
-    }
-
     fun deposit(guild: Guild, amount: Double) {
-        require(amount > 0) { "Amount must be positive" }
-
-        synchronized(storage) {
-            val current = storage.getValuation(guild.id)
-            storage.setValuation(guild.id, current + amount)
-        }
+        require(amount > 0) { "Must be positive" }
+        economyStorageService.increaseGuildValue(guild.id, amount)
     }
 
-    fun getValuations(): Map<String, Double> = storage.getValuations()
+    fun getValuation(guildId: String): Double {
+        return economyStorageService.getValuation(guildId)
+    }
+
+    fun getValuations(): Map<String, Double> {
+        return economyStorageService.getValuations()
+    }
+
 }

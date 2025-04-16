@@ -1,8 +1,7 @@
 package net.pvprealms.guilds.core
 
 import net.pvprealms.guilds.Guilds
-import net.pvprealms.guilds.service.GuildAssignmentService
-import net.pvprealms.guilds.service.GuildRegistry
+import net.pvprealms.guilds.service.assignment.GuildAssignmentService
 import net.pvprealms.guilds.service.GuildService
 import net.pvprealms.guilds.service.GuildStorageService
 import net.pvprealms.guilds.service.economy.GuildEconomyService
@@ -11,22 +10,19 @@ import net.pvprealms.guilds.service.economy.PlayerValuationTracker
 
 object ServiceRegistrar {
     fun register(plugin: Guilds, container: GuildsServices): Boolean {
-        val registry = GuildRegistry()
-        val storage = GuildStorageService(plugin, registry)
-        val assignment = GuildAssignmentService(storage, registry)
-        val economyStorage = GuildEconomyStorageService(plugin)
-        val economyService = GuildEconomyService(economyStorage)
+        val storageService = GuildStorageService(plugin, container.guildService)
+        val assignmentService = GuildAssignmentService(container.guildService, storageService)
+        val economyStorageService = GuildEconomyStorageService(plugin)
+        val economyService = GuildEconomyService(economyStorageService)
         val tracker = PlayerValuationTracker()
-        val guildService = GuildService(registry, storage, assignment)
+        val guildService = GuildService(storageService, assignmentService, economyStorageService)
 
-        guildService.load()
-        economyStorage.load()
+        guildService.loadServices()
 
-        container.guildRegistry = registry
-        container.guildStorage = storage
-        container.guildAssignment = assignment
+        container.guildStorage = storageService
+        container.guildAssignment = assignmentService
         container.guildService = guildService
-        container.guildEconomyStorage = economyStorage
+        container.guildEconomyStorage = economyStorageService
         container.guildEconomyService = economyService
         container.valuationTracker = tracker
 

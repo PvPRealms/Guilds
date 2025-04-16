@@ -19,14 +19,14 @@ class FirstJoinListener(
         val guild = service.getPlayerGuild(player)
 
         if (!player.hasPlayedBefore()) {
-            service.assignGuild(player)
+            service.assignPlayerGuild(player)
             player.sendMessage(MessageManager.format(
                 "assignment.assigned-first-join",
                 mapOf("guild" to guild.displayName)
             ))
         }
 
-        val currentVal = economyService.getValuation(guild)
+        val currentVal = economyService.getValuation(guild.id)
         val difference = valuationTracker.getIncrease(player.uniqueId, currentVal)
 
         if (difference != null && difference > 0) {

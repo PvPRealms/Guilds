@@ -9,43 +9,54 @@ import java.util.*
 
 class GuildStorageService(
     private val plugin: JavaPlugin,
-    private val registry: GuildRegistry
+    private val guildService: GuildService
 ) {
 
-    private lateinit var dataFile: File
+    private lateinit var file: File
     private lateinit var config: YamlConfiguration
+
     private val playerGuilds = mutableMapOf<UUID, Guild>()
 
-    fun load() {
-        dataFile = File(plugin.dataFolder, "player-guilds.yml")
-        if (!dataFile.exists()) {
-            dataFile.parentFile.mkdirs()
-            dataFile.createNewFile()
+    /* Return a player's Guild */
+    fun getPlayerGuild(uuid: UUID): Guild? {
+        return playerGuilds[uuid]
+    }
+
+    /* Return all player's and their Guild(s) */
+    fun getPlayerGuilds(): Map<UUID, Guild> {
+        return playerGuilds
+    }
+
+    /* Return whether a player is in a Guild */
+    fun hasGuild(player: Player): Boolean {
+        return playerGuilds.containsKey(player.uniqueId)
+    }
+
+    /* Load player-guilds.yml file */
+    fun loadPlayerGuilds() {
+        file = File(plugin.dataFolder, "player-guilds.yml")
+
+        if (!file.exists()) {
+            file.parentFile.mkdirs()
+            file.createNewFile()
         }
 
-        config = YamlConfiguration.loadConfiguration(dataFile)
+        config = YamlConfiguration.loadConfiguration(file)
 
         for (key in config.getKeys(false)) {
             val uuid = UUID.fromString(key)
             val guildId = config.getString(key) ?: continue
-            val guild = registry.getGuildById(guildId) ?: continue
+            val guild = guildService.getGuild(guildId) ?: continue
 
             playerGuilds[uuid] = guild
         }
     }
 
-    fun save(uuid: UUID, guild: Guild) {
+    /* Save information to player-guilds.yml file */
+    fun savePlayerGuilds(uuid: UUID, guild: Guild) {
         playerGuilds[uuid] = guild
         config.set(uuid.toString(), guild.id)
-        config.save(dataFile)
+        config.save(file)
     }
 
-    /* Return the player's Guild */
-    fun getPlayerGuild(uuid: UUID): Guild? = playerGuilds[uuid]
-
-    /* Return all player's and their Guild(s) */
-    fun getPlayerGuilds(): Map<UUID, Guild> = playerGuilds
-
-    /* Check whether a player belongs to a Guild */
-    fun hasGuild(player: Player): Boolean = playerGuilds.containsKey(player.uniqueId)
 }

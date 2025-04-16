@@ -2,7 +2,6 @@ package net.pvprealms.guilds.core
 
 import co.aikar.commands.PaperCommandManager
 import net.pvprealms.guilds.command.*
-import net.pvprealms.guilds.service.GuildRegistry
 import net.pvprealms.guilds.service.GuildService
 import net.pvprealms.guilds.service.economy.GuildEconomyService
 import org.bukkit.Bukkit
@@ -14,7 +13,6 @@ object CommandRegistrar {
         plugin: JavaPlugin,
         service: GuildService,
         economyService: GuildEconomyService,
-        registry: GuildRegistry
     ) {
         val commandManager = PaperCommandManager(plugin)
         commandManager.enableUnstableAPI("help")
@@ -37,7 +35,7 @@ object CommandRegistrar {
         commandManager.registerCommand(GuildSetCommand(service))
         commandManager.registerCommand(GuildReloadCommand(plugin))
         commandManager.registerCommand(GuildDepositCommand(service, economyService))
-        commandManager.registerCommand(GuildValuationCommand(registry, economyService))
+        commandManager.registerCommand(GuildValuationCommand(service, economyService))
         commandManager.registerCommand(GuildCommand(service))
     }
 }

@@ -3,22 +3,19 @@ package net.pvprealms.guilds
 import net.milkbowl.vault.economy.Economy
 import net.pvprealms.guilds.config.ConfigManager
 import net.pvprealms.guilds.config.MessageManager
-import net.pvprealms.guilds.core.CommandRegistrar
-import net.pvprealms.guilds.core.GuildsServices
-import net.pvprealms.guilds.core.ListenerRegistrar
-import net.pvprealms.guilds.core.ServiceRegistrar
+import net.pvprealms.guilds.core.*
 import org.bukkit.plugin.java.JavaPlugin
 
 class Guilds: JavaPlugin() {
 
     companion object {
         lateinit var instance: Guilds
-        lateinit var services: GuildsServices
+        lateinit var services: GuildServices
     }
 
     override fun onEnable() {
         instance = this
-        services = GuildsServices()
+        services = GuildServices()
 
         ConfigManager.load(this)
         MessageManager.load(this)
@@ -41,20 +38,18 @@ class Guilds: JavaPlugin() {
                 return@Runnable
             }
 
-            CommandRegistrar.register(this, services.guildService, services.guildEconomyService, services.guildRegistry)
+            CommandRegistrar.register(this, services.guildService, services.guildEconomyService)
             ListenerRegistrar.register(this, services.guildService, services.guildEconomyService, services.valuationTracker)
 
             logger.info("[Guilds] Plugin is enabled.")
         }, 1L)
+
+        services.guildEconomyStorage.startAutoSaveTask()
     }
 
     override fun onDisable() {
-        logger.info("[Guilds] Plugin is disabled.")
-    }
+        services.guildEconomyStorage.saveAllGuildValuation()
 
-    private fun setupEconomy(): Boolean {
-        val rsp = server.servicesManager.getRegistration(Economy::class.java) ?: return false
-        services.economy = rsp.provider
-        return true
+        logger.info("[Guilds] Plugin is disabled.")
     }
 }

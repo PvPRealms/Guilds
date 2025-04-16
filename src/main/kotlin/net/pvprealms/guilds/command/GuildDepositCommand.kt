@@ -11,7 +11,6 @@ import co.aikar.commands.annotation.Syntax
 import net.pvprealms.guilds.Guilds
 import net.pvprealms.guilds.config.MessageManager
 import net.pvprealms.guilds.service.GuildService
-import net.pvprealms.guilds.service.economy.GuildEconomyService
 import org.bukkit.entity.Player
 
 @CommandAlias("g|guild")

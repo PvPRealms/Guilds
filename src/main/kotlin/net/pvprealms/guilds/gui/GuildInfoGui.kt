@@ -13,7 +13,7 @@ import java.util.*
 object GuildInfoGui {
     fun open(player: Player, service: GuildService) {
         val guild = service.getPlayerGuild(player)
-        val members = service.getGuildMembers(guild)
+        val members = service.getPlayersInGuild(guild)
 
         val gui = buildGui(guild, members)
         gui.open(player)
