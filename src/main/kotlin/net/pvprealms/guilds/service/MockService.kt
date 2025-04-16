@@ -6,11 +6,10 @@ import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
+import org.yaml.snakeyaml.Yaml
 import java.io.File
 import java.util.UUID
 
-// new registry service
-// new main service
 class MockGuildService(
     private val storageService: MockStorageService,
     private val assignmentService: MockAssignmentService
@@ -65,7 +64,10 @@ class MockGuildService(
 
 }
 
-class MockStorageService(private val plugin: JavaPlugin, private val guildService: MockGuildService) {
+class MockStorageService(
+    private val plugin: JavaPlugin,
+    private val guildService: MockGuildService
+) {
 
     private lateinit var file: File
     private lateinit var config: YamlConfiguration
