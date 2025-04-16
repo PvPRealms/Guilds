@@ -41,10 +41,10 @@ class Guilds: JavaPlugin() {
             CommandRegistrar.register(this, services.guildService, services.guildEconomyService)
             ListenerRegistrar.register(this, services.guildService, services.guildEconomyService, services.valuationTracker)
 
+            services.guildEconomyStorage.startAutoSaveTask()
+
             logger.info("[Guilds] Plugin is enabled.")
         }, 1L)
-
-        services.guildEconomyStorage.startAutoSaveTask()
     }
 
     override fun onDisable() {

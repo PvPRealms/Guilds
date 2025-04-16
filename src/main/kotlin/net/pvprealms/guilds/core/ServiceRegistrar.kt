@@ -9,23 +9,35 @@ import net.pvprealms.guilds.service.economy.GuildEconomyStorageService
 import net.pvprealms.guilds.service.economy.PlayerValuationTracker
 
 object ServiceRegistrar {
-    fun register(plugin: Guilds, container: GuildsServices): Boolean {
-        val storageService = GuildStorageService(plugin, container.guildService)
-        val assignmentService = GuildAssignmentService(container.guildService, storageService)
-        val economyStorageService = GuildEconomyStorageService(plugin)
-        val economyService = GuildEconomyService(economyStorageService)
-        val tracker = PlayerValuationTracker()
-        val guildService = GuildService(storageService, assignmentService, economyStorageService)
+    fun register(plugin: Guilds, container: GuildServices): Boolean {
+        try {
+            val guildService = GuildService()
 
-        guildService.loadServices()
+            val storageService = GuildStorageService(plugin, guildService)
+            val assignmentService = GuildAssignmentService(guildService, storageService)
 
-        container.guildStorage = storageService
-        container.guildAssignment = assignmentService
-        container.guildService = guildService
-        container.guildEconomyStorage = economyStorageService
-        container.guildEconomyService = economyService
-        container.valuationTracker = tracker
+            guildService.init(storageService, assignmentService)
+            guildService.loadServices()
 
-        return true
+            val economyStorage = GuildEconomyStorageService(plugin)
+            economyStorage.loadGuildValuation()
+
+            val economyService = GuildEconomyService(economyStorage)
+            val tracker = PlayerValuationTracker()
+
+            container.guildService = guildService
+            container.guildStorage = storageService
+            container.guildAssignment = assignmentService
+            container.guildEconomyStorage = economyStorage
+            container.guildEconomyService = economyService
+            container.valuationTracker = tracker
+
+            return true
+
+        } catch (ex: Exception) {
+            plugin.logger.severe("[Guilds] Failed to register services: ${ex.message}")
+            ex.printStackTrace()
+            return false
+        }
     }
 }

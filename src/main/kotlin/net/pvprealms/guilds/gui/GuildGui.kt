@@ -27,6 +27,7 @@ object GuildGui {
             .name(mm("<green>${guild.displayName}</green>"))
             .lore(listOf(
                 mm("<gray>Members: <white>${service.getPlayersInGuild(guild).size}")
+                // TODO: SHow valuation
             ))
             .asGuiItem()
 

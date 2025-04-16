@@ -7,18 +7,21 @@ import net.pvprealms.guilds.service.economy.GuildEconomyStorageService
 import org.bukkit.entity.Player
 import java.util.*
 
-class GuildService(
-    private val storageService: GuildStorageService,
-    private val assignmentService: GuildAssignmentService,
-    private val economyStorageService: GuildEconomyStorageService
-) {
+class GuildService {
+
+    private lateinit var storageService: GuildStorageService
+    private lateinit var assignmentService: GuildAssignmentService
 
     private var guilds: Map<String, Guild> =
         ConfigManager.getGuildMap().mapValues { Guild(it.key.lowercase(), it.value) }
 
+    fun init(storageService: GuildStorageService, assignmentService: GuildAssignmentService) {
+        this.storageService = storageService
+        this.assignmentService = assignmentService
+    }
+
     fun loadServices() {
         storageService.loadPlayerGuilds()
-        economyStorageService.loadGuildValuation()
     }
 
     /* Return Guild by ID */
