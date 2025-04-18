@@ -51,7 +51,6 @@ class GuildService {
 
     /* Set a player's Guild on first join */
     fun assignPlayerGuild(player: Player): Guild {
-        // TODO: Maybe check if hasGuild first?
         val guild = assignmentService.assignPlayerGuild()
         storageService.savePlayerGuilds(player.uniqueId, guild)
         return guild

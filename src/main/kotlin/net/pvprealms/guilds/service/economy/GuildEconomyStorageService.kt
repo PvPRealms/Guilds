@@ -5,9 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
-class GuildEconomyStorageService(
-    private val plugin: JavaPlugin
-) {
+class GuildEconomyStorageService(private val plugin: JavaPlugin) {
 
     private lateinit var file: File
     private lateinit var config: YamlConfiguration

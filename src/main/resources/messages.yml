@@ -13,4 +13,4 @@ economy:
   greater-than-zero: "<red>Please enter an amount greater than $0.</red>"
   insufficient-funds: "<red>You do not have sufficient funds.</red>"
   deposit: "<green>You have successfully deposited <white>{amount}<green> into your Guild."
-  guild-valuation: "<prefix> Value: <white>{value}</white>"
+  guild-valuation: "<prefix> Value: <white>${value}</white>"

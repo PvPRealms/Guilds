@@ -28,7 +28,7 @@ class Guilds: JavaPlugin() {
                 return@Runnable
             }
 
-            services.economy = vault.provider
+            services.vaultEconomyService = vault.provider
             logger.info("[Guilds] Hooked into economy: ${vault.provider.name}")
 
             val success = ServiceRegistrar.register(this, services)
@@ -38,17 +38,17 @@ class Guilds: JavaPlugin() {
                 return@Runnable
             }
 
-            CommandRegistrar.register(this, services.guildService, services.guildEconomyService)
-            ListenerRegistrar.register(this, services.guildService, services.guildEconomyService, services.valuationTracker)
+            CommandRegistrar.register(this, services)
+            ListenerRegistrar.register(this, services)
 
-            services.guildEconomyStorage.startAutoSaveTask()
+            services.guildEconomyStorageService.startAutoSaveTask()
 
             logger.info("[Guilds] Plugin is enabled.")
         }, 1L)
     }
 
     override fun onDisable() {
-        services.guildEconomyStorage.saveAllGuildValuation()
+        services.guildEconomyStorageService.saveAllGuildValuation()
 
         logger.info("[Guilds] Plugin is disabled.")
     }

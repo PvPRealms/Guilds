@@ -1,6 +1,7 @@
 package net.pvprealms.guilds.listener
 
 import net.pvprealms.guilds.config.MessageManager
+import net.pvprealms.guilds.core.GuildServices
 import net.pvprealms.guilds.service.GuildService
 import net.pvprealms.guilds.service.economy.GuildEconomyService
 import net.pvprealms.guilds.service.economy.PlayerValuationTracker
@@ -8,26 +9,23 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
-class FirstJoinListener(
-    private val service: GuildService,
-    private val economyService: GuildEconomyService,
-    private val valuationTracker: PlayerValuationTracker
-): Listener {
+class FirstJoinListener(private val services: GuildServices): Listener {
+
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         val player = event.player
-        val guild = service.getPlayerGuild(player)
+        val guild = services.guildService.getPlayerGuild(player)
 
         if (!player.hasPlayedBefore()) {
-            service.assignPlayerGuild(player)
+            services.guildService.assignPlayerGuild(player)
             player.sendMessage(MessageManager.format(
                 "assignment.assigned-first-join",
                 mapOf("guild" to guild.displayName)
             ))
         }
 
-        val currentVal = economyService.getValuation(guild.id)
-        val difference = valuationTracker.getIncrease(player.uniqueId, currentVal)
+        val currentVal = services.guildEconomyService.getValuation(guild.id)
+        val difference = services.guildValuationTracker.getIncrease(player.uniqueId, currentVal)
 
         if (difference != null && difference > 0) {
             player.sendMessage(MessageManager.format(
@@ -36,6 +34,6 @@ class FirstJoinListener(
             )
         }
 
-        valuationTracker.update(player.uniqueId, currentVal)
+        services.guildValuationTracker.update(player.uniqueId, currentVal)
     }
 }

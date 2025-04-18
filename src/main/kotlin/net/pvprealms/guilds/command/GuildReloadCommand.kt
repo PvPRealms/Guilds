@@ -15,9 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin
 @Subcommand("reload")
 @Description("Reloads the Guild plugin configuration")
 @CommandPermission("guilds.admin")
-class GuildReloadCommand(
-    private val plugin: JavaPlugin,
-): BaseCommand() {
+class GuildReloadCommand(private val plugin: JavaPlugin): BaseCommand() {
     @Default
     fun onReload(sender: Player) {
         ConfigManager.load(plugin)

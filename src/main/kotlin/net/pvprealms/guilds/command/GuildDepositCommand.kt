@@ -3,27 +3,21 @@ package net.pvprealms.guilds.command
 import co.aikar.commands.BaseCommand
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandPermission
-import co.aikar.commands.annotation.Default
 import co.aikar.commands.annotation.Description
 import co.aikar.commands.annotation.Name
 import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.annotation.Syntax
-import net.pvprealms.guilds.Guilds
 import net.pvprealms.guilds.config.MessageManager
-import net.pvprealms.guilds.service.GuildService
-import net.pvprealms.guilds.service.economy.GuildEconomyService
+import net.pvprealms.guilds.core.GuildServices
+import net.pvprealms.guilds.gui.GuildDepositGui
 import org.bukkit.entity.Player
 
 @CommandAlias("g|guild")
-@Subcommand("deposit")
 @CommandPermission("guilds.player")
-class GuildDepositCommand(
-    private val service: GuildService,
-    private val economyService: GuildEconomyService
-): BaseCommand() {
+class GuildDepositCommand(private val services: GuildServices): BaseCommand() {
     @Description("Deposit balance into Guild valuation")
+    @Subcommand("deposit")
     @Syntax("<amount>")
-    @Default
     fun onDeposit(player: Player, @Name("amount") amountString: String) {
         val amount = amountString.toDoubleOrNull()
         if (amount == null || amount <= 0) {
@@ -31,19 +25,25 @@ class GuildDepositCommand(
             return
         }
 
-        val economy = Guilds.services.economy
+        val economy = services.vaultEconomyService
         if (!economy.has(player, amount)) {
             player.sendMessage(MessageManager.format("economy.insufficient-funds"))
             return
         }
 
-        val guild = service.getPlayerGuild(player)
+        val guild = services.guildService.getPlayerGuild(player)
         economy.withdrawPlayer(player, amount)
-        economyService.deposit(guild, amount)
+        services.guildEconomyService.deposit(guild, amount)
 
         player.sendMessage(MessageManager.format(
             "economy.deposit",
             mapOf("amount" to "%.2f".format(amount))
         ))
+    }
+
+    @Description("Deposit balance into Guild valuation")
+    @Subcommand("deposit")
+    fun onDepositGui(player: Player) {
+        GuildDepositGui.open(player, services)
     }
 }

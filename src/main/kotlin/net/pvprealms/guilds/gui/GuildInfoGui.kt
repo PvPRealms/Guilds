@@ -1,25 +1,24 @@
 package net.pvprealms.guilds.gui
 
 import dev.triumphteam.gui.guis.Gui
-import net.pvprealms.guilds.service.GuildService
+import net.pvprealms.guilds.core.GuildServices
 import net.pvprealms.guilds.helper.formatDuration
 import net.pvprealms.guilds.helper.guiPlayerHead
 import net.pvprealms.guilds.helper.mm
-import net.pvprealms.guilds.model.Guild
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.util.*
 
 object GuildInfoGui {
-    fun open(player: Player, service: GuildService) {
-        val guild = service.getPlayerGuild(player)
-        val members = service.getPlayersInGuild(guild)
+    fun open(player: Player, services: GuildServices) {
+        val guild = services.guildService.getPlayerGuild(player)
+        val members = services.guildService.getPlayersInGuild(guild)
 
-        val gui = buildGui(guild, members)
+        val gui = buildGui(members)
         gui.open(player)
     }
 
-    private fun buildGui(guild: Guild, memberUUIDs: List<UUID>): Gui {
+    private fun buildGui(memberUUIDs: List<UUID>): Gui {
         val gui = Gui.gui()
             .title(mm("Showing ${memberUUIDs.size} Member(s)"))
             .rows(6)

@@ -1,0 +1,30 @@
+blocks:
+  COAL_ORE:
+    value: 10.0
+    contribution-rate: 0.6
+  DIAMOND_ORE:
+    value: 100.0
+    contribution-rate: 0.8
+
+mobs:
+  ZOMBIE:
+    value: 20.0
+    contribution-rate: 0.5
+  ENDER_DRAGON:
+    value: 10000.0
+    contribution-rate: 0.9
+
+players:
+  PLAYER_KILL:
+    value: 50.0
+    contribution-rate: 0.4
+
+crops:
+  WHEAT:
+    value: 5.0
+    contribution-rate: 0.7
+
+fishing:
+  COD:
+    value: 4.0
+    contribution-rate: 0.5

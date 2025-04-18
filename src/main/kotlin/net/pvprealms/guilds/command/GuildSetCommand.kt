@@ -3,30 +3,32 @@ package net.pvprealms.guilds.command
 import co.aikar.commands.BaseCommand
 import co.aikar.commands.annotation.*
 import net.pvprealms.guilds.config.MessageManager
-import net.pvprealms.guilds.service.GuildService
+import net.pvprealms.guilds.core.GuildServices
 import org.bukkit.entity.Player
 
 @CommandAlias("g|guild")
 @CommandPermission("guilds.admin")
-class GuildSetCommand(
-    private val service: GuildService
-): BaseCommand() {
+class GuildSetCommand(private val services: GuildServices): BaseCommand() {
     @Subcommand("set")
-    @Description("Sets a player's Guild")
     @CommandCompletion("@players @guilds")
-    @Syntax("<target> <guild>")
-    fun onSet(sender: Player, @Name("target") target: Player, @Name("guild") guildId: String) {
-        val success = service.setPlayerGuild(target, guildId)
-        val guild = service.getPlayerGuild(target)
+    @Syntax("<player> <guild>")
+    @Description("Sets a player's Guild")
+    fun onSetCommand(
+        sender: Player,
+        @Name("player") player: Player,
+        @Name("guild") guildId: String
+    ) {
+        val success = services.guildService.setPlayerGuild(player, guildId)
+        val guild = services.guildService.getPlayerGuild(player)
 
         if (success) {
             sender.sendMessage(MessageManager.format(
                 "assignment.sender-set-message",
-                mapOf("player" to target.name, "guild" to guild.displayName)
+                mapOf("player" to player.name, "guild" to guild.displayName)
             ))
-            target.sendMessage(MessageManager.format(
+            player.sendMessage(MessageManager.format(
                 "assignment.target-set-message",
-                mapOf("player" to target.name, "guild" to guild.displayName)
+                mapOf("player" to player.name, "guild" to guild.displayName)
             ))
         } else {
             sender.sendMessage(MessageManager.format(
