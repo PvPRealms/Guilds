@@ -14,3 +14,9 @@ economy:
   insufficient-funds: "<red>You do not have sufficient funds.</red>"
   deposit: "<green>You have successfully deposited <white>{amount}<green> into your Guild."
   guild-valuation: "<prefix> Value: <white>${value}</white>"
+
+admin:
+  contribution-added: "<prefix> Added <green>${amount}</green> to <aqua>{guild}</aqua>'s valuation."
+  contribution-removed: "<prefix> Removed <red>${amount}</red> from <aqua>{guild}</aqua>'s valuation."
+  banned-player-admin: "<prefix> {player} has been banned from {guild}."
+  unbanned-player-admin: "<prefix> {player} has been unbanned from {guild}."

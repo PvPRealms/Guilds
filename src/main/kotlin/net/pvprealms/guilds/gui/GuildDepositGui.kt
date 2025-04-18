@@ -4,7 +4,7 @@ import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
 import net.pvprealms.guilds.Guilds
 import net.pvprealms.guilds.config.MessageManager
-import net.pvprealms.guilds.core.GuildServices
+import net.pvprealms.guilds.service.GuildServices
 import net.pvprealms.guilds.helper.mm
 import net.pvprealms.guilds.model.Guild
 import org.bukkit.Material
@@ -40,7 +40,7 @@ object GuildDepositGui {
                     }
 
                     eco.withdrawPlayer(player, amount)
-                    services.guildEconomyService.deposit(guild, amount)
+                    services.guildEconomyService.addToGuildValue(guild, amount)
 
                     player.sendMessage(MessageManager.format(
                         "economy.deposit",

@@ -8,7 +8,7 @@ import co.aikar.commands.annotation.Name
 import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.annotation.Syntax
 import net.pvprealms.guilds.config.MessageManager
-import net.pvprealms.guilds.core.GuildServices
+import net.pvprealms.guilds.service.GuildServices
 import net.pvprealms.guilds.gui.GuildDepositGui
 import org.bukkit.entity.Player
 
@@ -33,7 +33,7 @@ class GuildDepositCommand(private val services: GuildServices): BaseCommand() {
 
         val guild = services.guildService.getPlayerGuild(player)
         economy.withdrawPlayer(player, amount)
-        services.guildEconomyService.deposit(guild, amount)
+        services.guildEconomyService.addToGuildValue(guild, amount)
 
         player.sendMessage(MessageManager.format(
             "economy.deposit",

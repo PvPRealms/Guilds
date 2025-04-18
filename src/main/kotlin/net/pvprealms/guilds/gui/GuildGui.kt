@@ -2,11 +2,9 @@ package net.pvprealms.guilds.gui
 
 import dev.triumphteam.gui.builder.item.ItemBuilder
 import dev.triumphteam.gui.guis.Gui
-import net.pvprealms.guilds.core.GuildServices
+import net.pvprealms.guilds.service.GuildServices
 import net.pvprealms.guilds.helper.mm
 import net.pvprealms.guilds.model.Guild
-import net.pvprealms.guilds.service.GuildService
-import net.pvprealms.guilds.service.economy.GuildEconomyService
 import org.bukkit.Material
 import org.bukkit.entity.Player
 

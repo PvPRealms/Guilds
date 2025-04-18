@@ -8,17 +8,15 @@ import co.aikar.commands.annotation.Description
 import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.annotation.Syntax
 import net.pvprealms.guilds.config.MessageManager
-import net.pvprealms.guilds.core.GuildServices
-import net.pvprealms.guilds.service.GuildService
-import net.pvprealms.guilds.service.economy.GuildEconomyService
+import net.pvprealms.guilds.service.GuildServices
 import org.bukkit.entity.Player
 
 @CommandAlias("g|guild")
 @CommandPermission("guilds.player")
-class GuildValuationCommand(private val services: GuildServices): BaseCommand() {
+class GuildValueCommand(private val services: GuildServices): BaseCommand() {
     @Subcommand("value")
     @Description("Displays valuation of a player's Guild")
-    fun onValuation(sender: Player) {
+    fun onValue(sender: Player) {
         val guild = services.guildService.getPlayerGuild(sender)
         val value = services.guildEconomyService.getValuation(guild.id)
 
@@ -32,7 +30,7 @@ class GuildValuationCommand(private val services: GuildServices): BaseCommand() 
     @Description("Displays valuation of a player's Guild")
     @CommandCompletion("@guilds")
     @Syntax("<guild>")
-    fun onValuation(sender: Player, guildId: String) {
+    fun onValue(sender: Player, guildId: String) {
         val guild = services.guildService.getGuild(guildId)
         if (guild == null) {
             sender.sendMessage(MessageManager.format(

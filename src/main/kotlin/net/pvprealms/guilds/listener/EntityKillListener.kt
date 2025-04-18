@@ -1,6 +1,6 @@
 package net.pvprealms.guilds.listener
 
-import net.pvprealms.guilds.core.GuildServices
+import net.pvprealms.guilds.service.GuildServices
 import net.pvprealms.guilds.service.contribution.adapter.EntityKillAdapter
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

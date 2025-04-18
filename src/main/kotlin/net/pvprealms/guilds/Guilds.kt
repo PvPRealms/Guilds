@@ -3,7 +3,10 @@ package net.pvprealms.guilds
 import net.milkbowl.vault.economy.Economy
 import net.pvprealms.guilds.config.ConfigManager
 import net.pvprealms.guilds.config.MessageManager
-import net.pvprealms.guilds.core.*
+import net.pvprealms.guilds.core.registrar.CommandRegistrar
+import net.pvprealms.guilds.core.registrar.ListenerRegistrar
+import net.pvprealms.guilds.core.registrar.ServiceRegistrar
+import net.pvprealms.guilds.service.GuildServices
 import org.bukkit.plugin.java.JavaPlugin
 
 class Guilds: JavaPlugin() {

@@ -1,7 +1,7 @@
-package net.pvprealms.guilds.service.assignment
+package net.pvprealms.guilds.service.core
 
 import net.pvprealms.guilds.config.ConfigManager
-import net.pvprealms.guilds.core.GuildServices
+import net.pvprealms.guilds.service.GuildServices
 import net.pvprealms.guilds.model.Guild
 import org.bukkit.Bukkit
 

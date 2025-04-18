@@ -1,7 +1,9 @@
-package net.pvprealms.guilds.core
+package net.pvprealms.guilds.core.registrar
 
 import co.aikar.commands.PaperCommandManager
 import net.pvprealms.guilds.command.*
+import net.pvprealms.guilds.command.admin.*
+import net.pvprealms.guilds.service.GuildServices
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -27,10 +29,15 @@ object CommandRegistrar {
 
         /* Register Commands */
         commandManager.registerCommand(GuildInfoCommand(services))
-        commandManager.registerCommand(GuildSetCommand(services))
         commandManager.registerCommand(GuildReloadCommand(plugin))
         commandManager.registerCommand(GuildDepositCommand(services))
-        commandManager.registerCommand(GuildValuationCommand(services))
+        commandManager.registerCommand(GuildValueCommand(services))
         commandManager.registerCommand(GuildCommand(services))
+
+        commandManager.registerCommand(GuildAdminCommand())
+        commandManager.registerCommand(GuildAdminSetCommand(services))
+        commandManager.registerCommand(GuildAdminContributionCommand(services))
+        commandManager.registerCommand(GuildAdminBanCommand(services))
+        commandManager.registerCommand(GuildAdminUnbanCommand(services))
     }
 }

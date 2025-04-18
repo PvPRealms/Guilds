@@ -1,6 +1,6 @@
 package net.pvprealms.guilds.service.contribution
 
-import net.pvprealms.guilds.core.GuildServices
+import net.pvprealms.guilds.service.GuildServices
 
 class GuildContributionService(private val services: GuildServices) {
     fun contribute(adapter: GuildContributionAdapter) {
@@ -13,6 +13,6 @@ class GuildContributionService(private val services: GuildServices) {
         val playerCut = total - guildCut
 
         services.vaultEconomyService.depositPlayer(player, playerCut)
-        services.guildEconomyService.deposit(guild, guildCut)
+        services.guildEconomyService.addToGuildValue(guild, guildCut)
     }
 }

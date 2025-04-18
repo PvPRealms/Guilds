@@ -1,5 +1,6 @@
-package net.pvprealms.guilds.core
+package net.pvprealms.guilds.core.registrar
 
+import net.pvprealms.guilds.service.GuildServices
 import net.pvprealms.guilds.listener.*
 import org.bukkit.plugin.PluginManager
 import org.bukkit.plugin.java.JavaPlugin

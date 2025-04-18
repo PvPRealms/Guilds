@@ -1,7 +1,7 @@
 package net.pvprealms.guilds.gui
 
 import dev.triumphteam.gui.guis.Gui
-import net.pvprealms.guilds.core.GuildServices
+import net.pvprealms.guilds.service.GuildServices
 import net.pvprealms.guilds.helper.formatDuration
 import net.pvprealms.guilds.helper.guiPlayerHead
 import net.pvprealms.guilds.helper.mm

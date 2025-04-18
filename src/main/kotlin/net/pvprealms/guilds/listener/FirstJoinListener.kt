@@ -1,10 +1,7 @@
 package net.pvprealms.guilds.listener
 
 import net.pvprealms.guilds.config.MessageManager
-import net.pvprealms.guilds.core.GuildServices
-import net.pvprealms.guilds.service.GuildService
-import net.pvprealms.guilds.service.economy.GuildEconomyService
-import net.pvprealms.guilds.service.economy.PlayerValuationTracker
+import net.pvprealms.guilds.service.GuildServices
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
